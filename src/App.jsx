@@ -291,7 +291,7 @@ export default function FrameShop() {
               <button
                 key={cat}
                 onClick={() => handleCategoryChange(cat)}
-                className={`px-4 py-2 2xl:px-6 2xl:py-1 rounded-full text-xs 2xl:text-md font-bold transition-all duration-300 ${
+                className={`px-4 py-2 2xl:px-8 2xl:py-4 rounded-full text-xs 2xl:text-md font-bold transition-all duration-300 ${
                   filter === cat 
                     ? 'bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-lg shadow-purple-500/30 transform scale-105' 
                     : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
@@ -383,7 +383,15 @@ export default function FrameShop() {
             </div>
           </div>
         </div>
+
+        {/* Copyright Section */}
+        <div className="container mx-auto max-w-7xl px-2 mt-2 pt-2 border-t border-gray-100 text-center">
+            <p className="text-gray-400 text-xs">
+                &copy; {new Date().getFullYear()} FrameWorks. All rights reserved. |  <span className="font-medium text-gray-500">Designed by <a href="https://www.linkedin.com/in/lohith-mandla" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-600 transition-colors">Lohith Mandla</a></span>
+            </p>
+        </div>
       </footer>
+      
 
       {/* --- Mobile Bottom Nav --- */}
       <div className={`md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-40 px-6 py-2 flex justify-between items-center text-xs font-medium text-gray-500 transition-transform duration-300 ${showMobileNav ? 'translate-y-0' : 'translate-y-full'}`}>
