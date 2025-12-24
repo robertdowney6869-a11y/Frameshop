@@ -192,7 +192,7 @@ export default function FrameShop() {
 
 
   return (
-    <div className="min-h-screen bg-slate-50 font-sans text-gray-800">
+    <div className="min-h-screen bg-slate-50 font-sans text-gray-800 pb-8 md:pb-0 relative">
 
       {isLoading && (
         <div className="fixed inset-0 bg-white/90 backdrop-blur-sm z-[60] flex flex-col items-center justify-center transition-all duration-300">
@@ -385,7 +385,7 @@ export default function FrameShop() {
         </div>
 
         {/* Copyright Section */}
-        <div className="container mx-auto max-w-7xl px-2 mt-2 pt-2 border-t border-gray-100 text-center">
+        <div className="container mx-auto max-w-7xl px-4 mt-4 pt-4 border-t border-gray-100 text-center">
             <p className="text-gray-400 text-xs">
                 &copy; {new Date().getFullYear()} FrameWorks. All rights reserved. |  <span className="font-medium text-gray-500">Designed by <a href="https://www.linkedin.com/in/lohith-mandla" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-600 transition-colors">Lohith Mandla</a></span>
             </p>
