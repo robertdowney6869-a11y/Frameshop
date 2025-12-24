@@ -209,7 +209,7 @@ export default function FrameShop() {
       {/* --- Navigation --- */}
       <nav className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm">
         {/* Adjusted Container: Wider on 2xl and up */}
-        <div className="container mx-auto max-w-7xl 2xl:max-w-[90%] min-[1920px]:max-w-[2400px] px-4 h-16 2xl:h-24 flex items-center justify-between">
+        <div className="container mx-auto max-w-7xl 2xl:max-w-[90%] min-[1920px]:max-w-[2400px] px-4 h-16 2xl:h-18 flex items-center justify-between">
           <div className="flex items-center gap-2">
              <div className="w-8 h-8 2xl:w-12 2xl:h-12 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center text-white font-serif font-bold text-lg 2xl:text-2xl shadow-lg">F</div>
              <span className="text-xl 2xl:text-3xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-indigo-700 to-purple-600">
@@ -252,16 +252,16 @@ export default function FrameShop() {
             <div className="inline-flex items-center gap-2 px-3 py-1 2xl:px-5 2xl:py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-xs 2xl:text-base font-bold uppercase tracking-wider mb-6 text-pink-100">
               <Star size={12} className="text-yellow-300 fill-yellow-300 2xl:w-5 2xl:h-5" /> Custom Framing Specialist
             </div>
-            <h1 className="text-4xl md:text-6xl 2xl:text-7xl min-[1920px]:text-9xl font-extrabold tracking-tight mb-6 leading-tight drop-shadow-sm">
+            <h1 className="text-4xl md:text-5xl 2xl:text-6xl min-[1920px]:text-9xl font-extrabold tracking-tight mb-6 leading-tight drop-shadow-sm">
               Frame Your <br/> 
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-200 to-indigo-200">Masterpiece.</span>
             </h1>
-            <p className="text-indigo-100 text-lg 2xl:text-2xl min-[1920px]:text-3xl mb-8 max-w-xl 2xl:max-w-3xl leading-relaxed">
+            <p className="text-indigo-100 text-lg 2xl:text-1xl min-[1920px]:text-2xl mb-8 max-w-xl 2xl:max-w-2xl leading-relaxed">
               Browse our curated collection of premium wood, metal, and ornate frames. Select your favorites and request a personalized quote today.
             </p>
             <button 
               onClick={() => document.getElementById('catalog').scrollIntoView({ behavior: 'smooth' })}
-              className="bg-white text-indigo-900 px-8 py-4 2xl:px-12 2xl:py-6 rounded-full font-bold text-base 2xl:text-xl hover:bg-indigo-50 hover:scale-105 transition-all shadow-xl shadow-indigo-900/20 inline-flex items-center gap-2"
+              className="bg-white text-indigo-900 px-8 py-4 2xl:px-10 2xl:py-5 rounded-full font-bold text-base 2xl:text-lg hover:bg-indigo-50 hover:scale-105 transition-all shadow-lg shadow-indigo-900/20 inline-flex items-center gap-2"
             >
               Browse Catalog <ArrowRight size={18} className="2xl:w-6 2xl:h-6" />
             </button>
@@ -280,18 +280,18 @@ export default function FrameShop() {
 
       {/* --- Catalog Section --- */}
       {/* Adjusted Container */}
-      <div id="catalog" className="container mx-auto max-w-7xl xl:max-w-full xl:px-12 px-4 py-8 2xl:py-12 scroll-mt-12">
+      <div id="catalog" className="container mx-auto max-w-7xl xl:max-w-full xl:px-12 px-4 py-8 2xl:py-12 scroll-mt-8">
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-6">
           <div>
-            <h2 className="pt-3 text-3xl 2xl:text-5xl font-bold text-gray-900">Our Collection</h2>
-            <p className="text-gray-500 2xl:text-xl mt-1">Found <span className="font-bold text-indigo-600">{filteredFrames.length}</span> styles for you</p>
+            <h2 className="pt-3 text-3xl 2xl:text-4xl font-bold text-gray-900">Our Collection</h2>
+            <p className="text-gray-500 2xl:text-l mt-1">Found <span className="font-bold text-indigo-600">{filteredFrames.length}</span> styles for you</p>
           </div>
           <div className="flex flex-wrap gap-2 2xl:gap-3">
             {categories.map(cat => (
               <button
                 key={cat}
                 onClick={() => handleCategoryChange(cat)}
-                className={`px-4 py-2 2xl:px-8 2xl:py-4 rounded-full text-xs 2xl:text-lg font-bold transition-all duration-300 ${
+                className={`px-4 py-2 2xl:px-6 2xl:py-1 rounded-full text-xs 2xl:text-md font-bold transition-all duration-300 ${
                   filter === cat 
                     ? 'bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-lg shadow-purple-500/30 transform scale-105' 
                     : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'

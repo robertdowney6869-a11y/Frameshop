@@ -1,10 +1,10 @@
 import { Clock,Phone,Mail,MapPin } from "lucide-react";
 const ContactSection = () => (
-  <div id="contact" className="bg-white pt-2 pb-8 2xl:py-16 relative z-20 scroll-mt-14">
+  <div id="contact" className="bg-white pb-8 2xl:py-16 relative z-20 scroll-mt-18 2xl:scroll-mt-8">
     <div className="container mx-auto max-w-7xl 2xl:max-w-[90%] min-[1920px]:max-w-[2400px] px-4">
-      <div className="mb-10">
-        <h2 className="pt-3 text-3xl 2xl:text-5xl font-bold text-gray-900">Get in Touch</h2>
-        <p className="text-gray-500 2xl:text-xl mt-1">We'd love to help you frame your memories</p>
+      <div className="mb-8">
+        <h2 className="text-3xl 2xl:text-4xl font-bold text-gray-900">Get in Touch</h2>
+        <p className="text-gray-500 2xl:text-l mt-1">We'd love to help you frame your memories</p>
       </div>
       <div className="flex flex-col md:flex-row bg-gray-50 rounded-3xl overflow-hidden shadow-xl border border-gray-100">
         {/* 3. UPDATED: Reduced min-h-[400px] to min-h-[300px] */}
