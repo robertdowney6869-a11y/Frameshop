@@ -1,14 +1,14 @@
 import React, { useState, useMemo,useEffect } from 'react';
-import { ShoppingCart, X, Check, Search, Phone, Mail, MapPin, ArrowRight, Trash2, Send, Star,Home,LayoutGrid } from 'lucide-react';
+import { ShoppingCart, X, Check, Search, Phone, Mail, MapPin, ArrowRight, Trash2, Send, Star,Home,LayoutGrid,Loader2, Clock } from 'lucide-react';
 import ContactSection from './componets/ContactSection.jsx'
-import Classicoak from "../src/assets/classicoak.jpg"
-import Mattblack from  "../src/assets/mattblack.jpg"
+import Classicoak from "../src/assets/classicoak.png"
+import Mattblack from  "../src/assets/mattblack.png"
 import Goldleaf from  "../src/assets/Goldleaf.jpg"
-import Barnwood from  "../src/assets/Barnwood.jpg"
+import Barnwood from  "../src/assets/Barnwood.png"
 import GalleryWhite from  "../src/assets/GalleryWhite.jpg"
 import BrushedSilver from  "../src/assets/BrushedSilver.jpg"
-import MahoganyGold from  "../src/assets/MahoganyGold.jpg"
-import ChampagneSlim from  "../src/assets/ChampagneSlim.jpg"
+import MahoganyGold from  "../src/assets/MahoganyGold.png"
+import ChampagneSlim from  "../src/assets/ChampagneSlim.png"
 
 // --- Mock Data: Your Shop's Inventory with Images ---
 const FRAME_CATALOG = [
@@ -81,16 +81,12 @@ const FRAME_CATALOG = [
 // --- Components ---
 
 const FramePreview = ({ image, name }) => (
-  // 2xl:h-64 -> Taller cards on large screens
-  <div className="w-full h-56 2xl:h-72 bg-gray-100 flex items-center justify-center overflow-hidden relative group">
-    {/* Image Display */}
+  <div className="w-full aspect-square bg-white flex items-center justify-center overflow-hidden relative group  border-b border-gray-100">
     <img 
       src={image} 
-      alt={name}
-      className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110"
+      alt={name} 
+      className="w-full h-full object-contain transform transition-transform duration-700 group-hover:scale-105" 
     />
-    
-    {/* Overlay Gradient on Hover */}
     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
   </div>
 );
@@ -109,6 +105,8 @@ export default function FrameShop() {
   
   // Form State
 
+  const [isLoading, setIsLoading] = useState(true);
+
   const [showMobileNav, setShowMobileNav] = useState(false); 
 
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
@@ -121,9 +119,25 @@ export default function FrameShop() {
       : FRAME_CATALOG.filter(f => f.category === filter);
   }, [filter]);
 
+  // --- NEW: Handle Category Change with Loader ---
+  const handleCategoryChange = (selectedCategory) => {
+    setIsLoading(true); // 1. Start loading
+    setFilter(selectedCategory); // 2. Change the filter
+    
+    // 3. Stop loading after delay (simulating network request)
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 800); // 800ms delay for category switch
+  };
+
   useEffect(() => {
+    // Simulate Loading
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
+    // Scroll Logic
     const handleScroll = () => {
-      // Show mobile nav when user has scrolled down past 100px
       if (window.scrollY > 100) {
         setShowMobileNav(true);
       } else {
@@ -132,7 +146,10 @@ export default function FrameShop() {
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearTimeout(timer);
+    };
   }, []);
 
   const addToQuote = (frame) => {
@@ -173,8 +190,21 @@ export default function FrameShop() {
     }
   };
 
+
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-gray-800">
+
+      {isLoading && (
+        <div className="fixed inset-0 bg-white/90 backdrop-blur-sm z-[60] flex flex-col items-center justify-center transition-all duration-300">
+          <div className="relative">
+            <div className="w-16 h-16 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin"></div>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="text-xs font-bold text-indigo-600">F</span>
+            </div>
+          </div>
+          <p className="mt-4 text-gray-500 font-medium animate-pulse">Loading Collection...</p>
+        </div>
+      )}
       
       {/* --- Navigation --- */}
       <nav className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm">
@@ -218,7 +248,7 @@ export default function FrameShop() {
 
         {/* Adjusted Container */}
         <div className="container mx-auto max-w-7xl 2xl:max-w-[90%] min-[1920px]:max-w-[2400px] px-4 relative z-10">
-          <div className="max-w-2xl 2xl:max-w-4xl min-[1920px]:max-w-6xl">
+          <div className="max-w-2xl 2xl:max-w-4xl min-[1920px]:max-w-6xl pb-20 md:pb-0">
             <div className="inline-flex items-center gap-2 px-3 py-1 2xl:px-5 2xl:py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-xs 2xl:text-base font-bold uppercase tracking-wider mb-6 text-pink-100">
               <Star size={12} className="text-yellow-300 fill-yellow-300 2xl:w-5 2xl:h-5" /> Custom Framing Specialist
             </div>
@@ -250,20 +280,18 @@ export default function FrameShop() {
 
       {/* --- Catalog Section --- */}
       {/* Adjusted Container */}
-      <div id="catalog" className="container mx-auto max-w-7xl 2xl:max-w-[90%] min-[1920px]:max-w-[2400px] px-4 py-16 2xl:py-24">
-        
-        <div className="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-6">
+      <div id="catalog" className="container mx-auto max-w-7xl xl:max-w-full xl:px-12 px-4 py-8 2xl:py-12 scroll-mt-12">
+        <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-6">
           <div>
             <h2 className="pt-3 text-3xl 2xl:text-5xl font-bold text-gray-900">Our Collection</h2>
             <p className="text-gray-500 2xl:text-xl mt-1">Found <span className="font-bold text-indigo-600">{filteredFrames.length}</span> styles for you</p>
           </div>
-          
           <div className="flex flex-wrap gap-2 2xl:gap-3">
             {categories.map(cat => (
               <button
                 key={cat}
-                onClick={() => setFilter(cat)}
-                className={`px-5 py-2.5 2xl:px-8 2xl:py-4 rounded-full text-sm 2xl:text-lg font-bold transition-all duration-300 ${
+                onClick={() => handleCategoryChange(cat)}
+                className={`px-4 py-2 2xl:px-8 2xl:py-4 rounded-full text-xs 2xl:text-lg font-bold transition-all duration-300 ${
                   filter === cat 
                     ? 'bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-lg shadow-purple-500/30 transform scale-105' 
                     : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
@@ -275,42 +303,40 @@ export default function FrameShop() {
           </div>
         </div>
 
-        {/* Responsive Grid Adjustment: 
-           lg: 4 columns
-           2xl: 5 columns (Laptop L)
-           min-[1920px]: 6 columns (TV)
+        {/* CHANGED: 
+            - grid-cols-1 (Mobile)
+            - sm:grid-cols-2 (Tablet)
+            - lg:grid-cols-4 (Laptop)
+            - xl:grid-cols-5 (Laptop L)
+            - 2xl:grid-cols-6 (Desktop)
+            - min-[1800px]:grid-cols-8 (TV - full single row)
         */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 min-[1920px]:grid-cols-6 gap-8 2xl:gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 min-[1800px]:grid-cols-8 gap-4 2xl:gap-8">
           {filteredFrames.map(frame => (
-            <div key={frame.id} className="group bg-white rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-indigo-100 transition-all duration-300 flex flex-col border border-gray-100">
+            <div key={frame.id} className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-indigo-100 transition-all duration-300 flex flex-col border border-gray-100">
+              <FramePreview image={frame.image} name={frame.name} />
               
-              {/* Visual Preview */}
-              <FramePreview image={frame.image} style={frame.style} width={frame.width} />
-              
-              <div className="p-6 2xl:p-8 flex flex-col flex-grow relative">
-                <div className="flex items-start justify-between mb-3">
+              <div className="p-4 2xl:p-6 flex flex-col flex-grow relative">
+                <div className="flex items-start justify-between mb-2">
                   <Badge color="bg-indigo-50 text-indigo-700 border border-indigo-100">{frame.category}</Badge>
                   <Badge color={getPriceColor(frame.priceLevel)}>{frame.priceLevel}</Badge>
                 </div>
-                
-                <h3 className="text-xl 2xl:text-2xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors">{frame.name}</h3>
-                <p className="text-gray-500 text-sm 2xl:text-base mb-6 line-clamp-2 leading-relaxed">{frame.description}</p>
-                
+                <h3 className="text-base 2xl:text-xl font-bold text-gray-900 mb-1 group-hover:text-indigo-600 transition-colors">{frame.name}</h3>
+                <p className="text-gray-500 text-[10px] 2xl:text-sm mb-3 line-clamp-2 leading-relaxed">{frame.description}</p>
                 <div className="mt-auto">
                   <button
                     onClick={() => addToQuote(frame)}
                     disabled={cart.find(i => i.id === frame.id)}
-                    className={`w-full py-3 2xl:py-4 rounded-xl font-bold text-sm 2xl:text-base flex items-center justify-center gap-2 transition-all duration-200 ${
+                    className={`w-full py-2 2xl:py-3 rounded-xl font-bold text-xs 2xl:text-sm flex items-center justify-center gap-2 transition-all duration-200 ${
                       cart.find(i => i.id === frame.id)
-                        ? 'bg-emerald-100 text-emerald-700 cursor-default border border-emerald-200'
-                        : 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-md hover:shadow-lg shadow-indigo-200'
+                        ? '!bg-emerald-100 text-emerald-700 cursor-default border border-emerald-200'
+                        : '!bg-indigo-600 hover:bg-indigo-700 text-white shadow-md hover:shadow-lg shadow-indigo-200'
                     }`}
-
                   >
                     {cart.find(i => i.id === frame.id) ? (
-                      <><Check size={18} /> Added to Quote</>
+                      <><Check size={14} /> Added</>
                     ) : (
-                      <>Add to Quote Request</>
+                      <>Add</>
                     )}
                   </button>
                 </div>
